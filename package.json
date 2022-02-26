@@ -23,7 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "tailwind:build": "npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/styles.css",
+    "tailwind:build": "npx tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/styles.css --watch",
     "start": "yarn tailwind:build & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
