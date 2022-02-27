@@ -1,7 +1,7 @@
 import _Home from "./Home";
-import _Login from "./Login";
+import _Login from "./Auth/Login";
 
-import _Join from "./Join";
+import _Join from "./Auth/Join";
 
 export const Home = _Home;
 

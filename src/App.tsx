@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Home, Join, Login } from "Route";
-import { AuthLayout, HomeLayout, RootLayout } from "Compoenet";
+import { AuthLayout, HomeLayout, RootLayout } from "Component";
 
 function App() {
   const [isLogin] = useState(false);

@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { ErrorMessage } from "./component";
 
 interface IForm {
   email: string;
@@ -24,13 +26,10 @@ export default function Login() {
   });
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-between bg-white">
-      <form
-        onSubmit={onSubmit}
-        className="w-full p-5 flex flex-col items-center justify-start"
-      >
-        <h3>회원정보를 입력하세요.</h3>
-        <ErrorMessage message={errors.email?.message} />
+    <div className="w-full h-full pt-4 flex flex-col items-center justify-between">
+      <form onSubmit={onSubmit} className="w-full flex flex-col items-center">
+        <h1 className="text-2xl m-0 font-normal">회원정보를 입력하세요.</h1>
+        <div className="h-4" />
         <input
           {...emailRegister}
           onChange={(e) => {
@@ -40,7 +39,6 @@ export default function Login() {
           placeholder="email"
           className="auth_input"
         />
-        <ErrorMessage message={errors.password?.message} />
         <input
           {...passwordRegister}
           onChange={(e) => {
@@ -50,11 +48,10 @@ export default function Login() {
           placeholder="password"
           className="auth_input"
         />
-        <div className="pt-1" />
-        <ErrorMessage message={errors.result?.message} />
+        <div className="h-4" />
         <button
           type="submit"
-          className={isValid ? "auth_btn" : "auth_btn auth_btn_disabled"}
+          className={`auth_btn ${isValid || "auth_btn_disabled"}`}
           onClick={() => {
             setValue("email", "");
             setValue("password", "");
@@ -64,13 +61,20 @@ export default function Login() {
         >
           로그인
         </button>
+        <ErrorMessage
+          message={
+            errors.email?.message ??
+            errors.password?.message ??
+            errors.result?.message
+          }
+        />
       </form>
-      <div className="w-full"></div>
+      <div className="w-full p-5 flex items-center justify-center">
+        <span className="mr-2">회원이 아니신가요?</span>
+        <Link to="/Join" className="font-medium hover:underline">
+          회원 가입
+        </Link>
+      </div>
     </div>
   );
 }
-
-const ErrorMessage = ({ message }: { message: string | null | undefined }) =>
-  message ? (
-    <span className="font-normal text-sm text-red-500">{message}</span>
-  ) : null;
