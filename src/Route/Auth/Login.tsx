@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { ErrorMessage } from "./component";
+import { ErrorMessage, Input } from "./component";
 
 interface IForm {
   email: string;
@@ -26,28 +26,12 @@ export default function Login() {
   });
 
   return (
-    <div className="w-full h-full pt-4 flex flex-col items-center justify-between">
+    <>
       <form onSubmit={onSubmit} className="w-full flex flex-col items-center">
         <h1 className="text-2xl m-0 font-normal">회원정보를 입력하세요.</h1>
         <div className="h-4" />
-        <input
-          {...emailRegister}
-          onChange={(e) => {
-            clearErrors();
-            emailRegister.onChange(e);
-          }}
-          placeholder="email"
-          className="auth_input"
-        />
-        <input
-          {...passwordRegister}
-          onChange={(e) => {
-            clearErrors();
-            passwordRegister.onChange(e);
-          }}
-          placeholder="password"
-          className="auth_input"
-        />
+        <Input registerReturn={emailRegister} clearErrors={clearErrors} />
+        <Input registerReturn={passwordRegister} clearErrors={clearErrors} />
         <div className="h-4" />
         <button
           type="submit"
@@ -75,6 +59,6 @@ export default function Login() {
           회원 가입
         </Link>
       </div>
-    </div>
+    </>
   );
 }

@@ -7,7 +7,9 @@ export default function AuthLayout(): JSX.Element {
       <header className="h-12 sm:h-20 w-full bg-black"></header>
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="h-full sm:h-auto w-full flex flex-col px-4 sm:px-9 sm:pt-6 sm:max-w-md">
-          <Outlet />
+          <div className="w-full h-full pt-4 flex flex-col items-center justify-between">
+            <Outlet />
+          </div>
           <footer className="flex flex-col items-center text-center">
             <div className="py-5">
               <a className="px-1 text-gray-700 cursor-pointer">
