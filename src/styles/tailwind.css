@@ -15,7 +15,7 @@ body {
 .auth_btn {
   @apply py-3 px-5 my-1 w-full rounded-lg bg-black shadow-inner font-medium text-lg text-white;
 }
-.auth_btn_disabled {
+.btn_disabled {
   @apply bg-gray-300 select-none;
 }
 @tailwind utilities;
