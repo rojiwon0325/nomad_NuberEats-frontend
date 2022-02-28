@@ -530,8 +530,24 @@ body {
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.-bottom-5 {
+  bottom: -1.25rem;
+}
+
 .m-0 {
   margin: 0px;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 
 .mr-2 {
@@ -613,6 +629,11 @@ body {
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+}
+
+.px-9 {
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
 }
 
 .pt-4 {

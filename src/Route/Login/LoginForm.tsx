@@ -54,7 +54,10 @@ const LoginForm: React.FC = () => {
   );
 
   return (
-    <form onSubmit={onSubmit} className="w-full flex flex-col items-center">
+    <form
+      onSubmit={onSubmit}
+      className="w-full mb-5 flex flex-col items-center relative"
+    >
       <h1 className="text-2xl m-0 font-normal">회원정보를 입력하세요.</h1>
       <div className="h-4" />
       <input
@@ -80,7 +83,7 @@ const LoginForm: React.FC = () => {
       <div className="h-4" />
       <button
         type="submit"
-        className={`auth_btn ${isValid || "btn_disabled"}`}
+        className={`auth_btn ${isValid ? "" : "btn_disabled"}`}
         disabled={!isValid || loading}
       >
         로그인

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import JoinForm from "./JoinForm";
 
-const Login: React.FC = () => {
+const Join: React.FC = () => {
   return (
     <>
       <JoinForm />
@@ -16,4 +16,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default Join;

@@ -65,7 +65,10 @@ const JoinForm = () => {
   useEffect(() => {}, [watch("role")]);
 
   return (
-    <form onSubmit={onSubmit} className="w-full flex flex-col items-center">
+    <form
+      onSubmit={onSubmit}
+      className="w-full mb-5 flex flex-col items-center relative"
+    >
       <h1 className="text-2xl m-0 font-normal">회원가입</h1>
       <div className="h-4" />
       <input

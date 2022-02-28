@@ -1,10 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Logo from "./Logo";
 
-export default function AuthLayout(): JSX.Element {
+const AuthLayout: React.FC = () => {
   return (
     <>
-      <header className="h-12 sm:h-20 w-full bg-black"></header>
+      <header className="h-12 w-full sm:h-20 px-4 sm:px-9 flex items-center bg-black">
+        <Logo />
+      </header>
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="h-full sm:h-auto w-full flex flex-col px-4 sm:px-9 sm:pt-6 sm:max-w-md">
           <div className="w-full h-full pt-4 flex flex-col items-center justify-between">
@@ -28,4 +31,6 @@ export default function AuthLayout(): JSX.Element {
       </div>
     </>
   );
-}
+};
+
+export default AuthLayout;
