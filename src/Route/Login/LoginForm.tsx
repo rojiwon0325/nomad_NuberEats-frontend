@@ -5,6 +5,8 @@ import { ErrorMessage } from "Component";
 import { login, loginVariables } from "Igql/login";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
+import { isLogin } from "Apollo/apollo";
+import { setCookie } from "Global/cookie";
 
 interface IForm {
   email: string;
@@ -13,7 +15,7 @@ interface IForm {
 }
 
 const LoginForm: React.FC = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { email: string; password: string } | null;
   const {
@@ -35,8 +37,9 @@ const LoginForm: React.FC = () => {
     {
       onCompleted: ({ login: { ok, error, token } }) => {
         if (ok && token !== null) {
-          console.log("로그인", token);
-          //navigate("/");
+          setCookie("access_token", token, 30);
+          isLogin(true);
+          navigate("/");
         } else {
           setError("result", { message: error ?? undefined });
         }

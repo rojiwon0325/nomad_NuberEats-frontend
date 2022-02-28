@@ -1,14 +1,15 @@
-import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Home, Join, Login } from "Route";
 import { AuthLayout, HomeLayout, RootLayout } from "Component";
+import { isLogin } from "Apollo/apollo";
+import { useReactiveVar } from "@apollo/client";
 
 function App() {
-  const [isLogin] = useState(false);
+  const _isLogin = useReactiveVar(isLogin);
   return (
     <RootLayout>
       <Routes>
-        {isLogin ? (
+        {_isLogin ? (
           <Route path="/" element={<HomeLayout />}>
             <Route index element={<Home />} />
             <Route path="*" element={<Navigate replace to="/" />} />

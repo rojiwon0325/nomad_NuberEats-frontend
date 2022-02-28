@@ -105,7 +105,7 @@ const JoinForm = () => {
           type="button"
           className={`auth_btn ${
             getValues("role") !== UserRole.Client ? "btn_disabled" : ""
-          }`}
+          } transition-colors`}
           onClick={() => setValue("role", UserRole.Client)}
         >
           일반
@@ -114,7 +114,7 @@ const JoinForm = () => {
           type="button"
           className={`auth_btn ${
             getValues("role") !== UserRole.Owner ? "btn_disabled" : ""
-          }`}
+          } transition-colors`}
           onClick={() => setValue("role", UserRole.Owner)}
         >
           사업자
@@ -123,7 +123,7 @@ const JoinForm = () => {
           type="button"
           className={`auth_btn ${
             getValues("role") !== UserRole.Rider ? "btn_disabled" : ""
-          }`}
+          } transition-colors`}
           onClick={() => setValue("role", UserRole.Rider)}
         >
           라이더
