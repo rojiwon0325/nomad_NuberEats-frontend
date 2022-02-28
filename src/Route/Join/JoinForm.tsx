@@ -26,6 +26,7 @@ const JoinForm = () => {
     clearErrors,
     setError,
     watch,
+    setFocus,
   } = useForm<IForm>({
     mode: "onChange",
     defaultValues: { role: UserRole.Client },
@@ -80,6 +81,7 @@ const JoinForm = () => {
         placeholder={emailRegister.name}
         className="auth_input"
         type="email"
+        onKeyUp={({ key }) => (key === "Enter" ? setFocus("username") : null)}
       />
       <input
         {...usernameRegister}
@@ -89,6 +91,7 @@ const JoinForm = () => {
         }}
         placeholder={usernameRegister.name}
         className="auth_input"
+        onKeyUp={({ key }) => (key === "Enter" ? setFocus("password") : null)}
       />
       <input
         {...passwordRegister}

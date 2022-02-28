@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "Apollo/Query/user";
 import { ErrorMessage } from "Component";
@@ -25,13 +25,14 @@ const LoginForm: React.FC = () => {
     formState: { isValid, errors },
     clearErrors,
     setError,
+    setFocus,
   } = useForm<IForm>({ mode: "onChange", defaultValues: state ?? undefined });
 
   const emailRegister = register("email", { required: "이메일을 입력하세요." });
   const passwordRegister = register("password", {
     required: "비밀번호를 입력하세요.",
   });
-
+  const submitRef = useRef<HTMLButtonElement>(null);
   const [loginMutation, { loading }] = useMutation<login, loginVariables>(
     LOGIN_MUTATION,
     {
@@ -72,6 +73,7 @@ const LoginForm: React.FC = () => {
         placeholder={emailRegister.name}
         className="auth_input"
         type="email"
+        onKeyUp={({ key }) => (key === "Enter" ? setFocus("password") : null)}
       />
       <input
         {...passwordRegister}
@@ -82,9 +84,13 @@ const LoginForm: React.FC = () => {
         placeholder={passwordRegister.name}
         className="auth_input"
         type="password"
+        onKeyUp={({ key }) =>
+          key === "Enter" ? submitRef.current?.click() : null
+        }
       />
       <div className="h-4" />
       <button
+        ref={submitRef}
         type="submit"
         className={`auth_btn ${isValid ? "" : "btn_disabled"}`}
         disabled={!isValid || loading}
