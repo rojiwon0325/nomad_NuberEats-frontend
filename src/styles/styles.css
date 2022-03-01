@@ -546,6 +546,10 @@ body {
   margin: 0px;
 }
 
+.m-1 {
+  margin: 0.25rem;
+}
+
 .mb-5 {
   margin-bottom: 1.25rem;
 }

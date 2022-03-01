@@ -9,10 +9,6 @@ function App() {
   return (
     <RootLayout>
       <Routes>
-        <Route path="verification" element={<AuthLayout />}>
-          <Route index element={<NotFound />} />
-          <Route path=":code" element={<Verification />} />
-        </Route>
         {_isLogin ? (
           <Route path="/" element={<HomeLayout />}>
             <Route index element={<Home />} />
@@ -26,6 +22,10 @@ function App() {
             <Route path="*" element={<Navigate replace to="/login" />} />
           </Route>
         )}
+        <Route path="verification" element={<AuthLayout />}>
+          <Route index element={<NotFound />} />
+          <Route path=":code" element={<Verification />} />
+        </Route>
       </Routes>
     </RootLayout>
   );
