@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Home, Join, Login } from "Route";
+import { Home, Join, Login, NotFound, Verification } from "Route";
 import { AuthLayout, HomeLayout, RootLayout } from "Component";
 import { isLogin } from "Apollo/apollo";
 import { useReactiveVar } from "@apollo/client";
@@ -9,10 +9,14 @@ function App() {
   return (
     <RootLayout>
       <Routes>
+        <Route path="verification" element={<AuthLayout />}>
+          <Route index element={<NotFound />} />
+          <Route path=":code" element={<Verification />} />
+        </Route>
         {_isLogin ? (
           <Route path="/" element={<HomeLayout />}>
             <Route index element={<Home />} />
-            <Route path="*" element={<Navigate replace to="/" />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         ) : (
           <Route path="/" element={<AuthLayout />}>

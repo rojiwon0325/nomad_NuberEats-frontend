@@ -18,3 +18,12 @@ export const CREATEACCOUNT_MUTATION = gql`
     }
   }
 `;
+
+export const VERIFYEMAIL_MUTATION = gql`
+  mutation verifyEmail($code: String!) {
+    verifyEmail(code: $code) {
+      ok
+      error
+    }
+  }
+`;
