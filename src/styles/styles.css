@@ -662,19 +662,14 @@ body {
   line-height: 2rem;
 }
 
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-9xl {
-  font-size: 8rem;
-  line-height: 1;
-}
-
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-normal {
@@ -683,10 +678,6 @@ body {
 
 .font-medium {
   font-weight: 500;
-}
-
-.font-black {
-  font-weight: 900;
 }
 
 .font-bold {

@@ -14,7 +14,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      Authentication: `Bearer ${getCookie("access_token")}`,
+      Authorization: `Bearer ${getCookie("access_token")}`,
     },
   };
 });
@@ -35,10 +35,10 @@ const uploadHttpLink = createUploadLink({
 
 const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    console.log("GraphQL Error", graphQLErrors);
+    // console.log("GraphQL Error", graphQLErrors);
   }
   if (networkError) {
-    console.log("Network Error", networkError);
+    // console.log("Network Error", networkError);
   }
 });
 

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Logo } from "Component";
+import useMe from "Hook/useMe";
 
 const HomeLayout: React.FC = () => {
+  //const { data } = useMe();
+  //console.log(data);
   return (
     <>
       <header className="h-12 w-full sm:h-20 px-4 sm:px-9 flex items-center bg-black">

@@ -8,9 +8,10 @@
 // ====================================================
 
 export interface verifyEmail_verifyEmail {
-  __typename: "CoreOutput";
+  __typename: "VerifyEmailOutput";
   ok: boolean;
   error: string | null;
+  userId: number | null;
 }
 
 export interface verifyEmail {
