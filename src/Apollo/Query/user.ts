@@ -17,7 +17,6 @@ export const LOGIN_MUTATION = gql`
     login(user: $user) {
       ok
       error
-      token
     }
   }
 `;

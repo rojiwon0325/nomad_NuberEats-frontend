@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Home, Join, Login, NotFound, Verification } from "Route";
 import { AuthLayout, HomeLayout, RootLayout } from "Component";
-import { isLogin } from "Apollo/apollo";
 import { useReactiveVar } from "@apollo/client";
+import { isLogin } from "Apollo/apollo";
 
 function App() {
   const _isLogin = useReactiveVar(isLogin);

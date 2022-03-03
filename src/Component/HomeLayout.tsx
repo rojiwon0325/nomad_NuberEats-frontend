@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { Logo } from "Component";
+import { Helmet } from "react-helmet-async";
 import useMe from "Hook/useMe";
 
 const HomeLayout: React.FC = () => {
-  //const { data } = useMe();
-  //console.log(data);
+  useMe();
   return (
     <>
+      <Helmet>
+        <title>Nuber | Home</title>
+      </Helmet>
       <header className="h-12 w-full sm:h-20 px-4 sm:px-9 flex items-center bg-black">
         <Logo />
       </header>

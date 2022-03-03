@@ -6,7 +6,6 @@ import { login, loginVariables } from "Igql/login";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isLogin } from "Apollo/apollo";
-import { setCookie } from "Global/cookie";
 
 interface IForm {
   email: string;
@@ -36,9 +35,8 @@ const LoginForm: React.FC = () => {
   const [loginMutation, { loading }] = useMutation<login, loginVariables>(
     LOGIN_MUTATION,
     {
-      onCompleted: ({ login: { ok, error, token } }) => {
-        if (ok && token !== null) {
-          setCookie("access_token", token, 30);
+      onCompleted: async ({ login: { ok, error } }) => {
+        if (ok) {
           isLogin(true);
           navigate("/");
         } else {

@@ -13,7 +13,6 @@ export interface login_login {
   __typename: "LoginOutput";
   ok: boolean;
   error: string | null;
-  token: string | null;
 }
 
 export interface login {
