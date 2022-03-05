@@ -1,11 +1,8 @@
-import { ApolloClient, InMemoryCache, makeVar, split } from "@apollo/client";
+import { ApolloClient, InMemoryCache, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
 import { getMainDefinition } from "@apollo/client/utilities";
-import { getCookie } from "Global/cookie";
-
-export const isLogin = makeVar(Boolean(getCookie("isLogin")));
 
 const server = "//localhost:4000/graphql";
 

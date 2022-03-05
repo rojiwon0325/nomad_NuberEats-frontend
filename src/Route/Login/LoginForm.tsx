@@ -1,11 +1,10 @@
 import React, { useRef } from "react";
 import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION } from "Apollo/Query/user";
+import { ISLOGIN_QUERY, LOGIN_MUTATION, ME_QUERY } from "Apollo/Query/user";
 import { ErrorMessage } from "Component";
 import { login, loginVariables } from "Igql/login";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
-import { isLogin } from "Apollo/apollo";
 
 interface IForm {
   email: string;
@@ -37,13 +36,14 @@ const LoginForm: React.FC = () => {
     {
       onCompleted: async ({ login: { ok, error } }) => {
         if (ok) {
-          isLogin(true);
           navigate("/");
         } else {
           setError("result", { message: error ?? undefined });
         }
       },
       onError: () => setValue("result", "서버에 문제가 발생했습니다."),
+      refetchQueries: [ISLOGIN_QUERY, ME_QUERY],
+      awaitRefetchQueries: true,
     }
   );
 

@@ -1,17 +1,23 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Home, Join, Login, NotFound, Verification } from "Route";
 import { AuthLayout, HomeLayout, RootLayout } from "Component";
-import { useReactiveVar } from "@apollo/client";
-import { isLogin } from "Apollo/apollo";
+import { useQuery } from "@apollo/client";
+import { ISLOGIN_QUERY, ME_QUERY } from "Apollo/Query/user";
+import { isLogin as IsLogin } from "Igql/isLogin";
+import { me } from "Igql/me";
 
 function App() {
-  const _isLogin = useReactiveVar(isLogin);
+  const { data: mydata } = useQuery<me>(ME_QUERY);
+  const { loading, data } = useQuery<IsLogin>(ISLOGIN_QUERY);
+  if (loading) {
+    return <div>loading.......</div>;
+  }
   return (
     <RootLayout>
       <Routes>
-        {_isLogin ? (
-          <Route path="/" element={<HomeLayout />}>
-            <Route index element={<Home />} />
+        {data?.isLogin ? (
+          <Route path="/" element={<HomeLayout user={mydata?.me ?? null} />}>
+            <Route index element={<Home user={mydata?.me ?? null} />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         ) : (

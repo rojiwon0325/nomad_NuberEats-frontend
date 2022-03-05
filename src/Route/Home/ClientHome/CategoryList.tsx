@@ -1,9 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { FINDALLCATEGORY_QUERY } from "Apollo/Query/category";
-import {
-  findAllCategory,
-  findAllCategory_findAllCategory_result,
-} from "Igql/findAllCategory";
+import { findAllCategory } from "Igql/findAllCategory";
+import React from "react";
 
 const CategoryList = () => {
   const { data, loading } = useQuery<findAllCategory>(FINDALLCATEGORY_QUERY);
@@ -22,7 +20,8 @@ const CategoryList = () => {
     </div>
   );
 };
-export default CategoryList;
+export default React.memo(CategoryList);
+// user props가 변경되어도 memo에 의해 rerendering이 발생하지 않는다.
 
 const Category: React.FC<{ name: string; coverImage: string }> = ({
   name,

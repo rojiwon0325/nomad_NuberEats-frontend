@@ -12,6 +12,18 @@ export const ME_QUERY = gql`
   }
 `;
 
+export const ISLOGIN_QUERY = gql`
+  query isLogin {
+    isLogin
+  }
+`;
+
+export const LOGOUT_QUERY = gql`
+  query logout {
+    logout
+  }
+`;
+
 export const LOGIN_MUTATION = gql`
   mutation login($user: LoginInput!) {
     login(user: $user) {
