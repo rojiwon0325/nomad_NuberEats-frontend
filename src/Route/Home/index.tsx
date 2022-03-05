@@ -1,8 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import CategoryList from "./CategoryList";
+import MainBanner from "./MainBanner";
 
 const Home: React.FC = () => {
-  return <Link to="/">Home</Link>;
+  return (
+    <div className="h-full w-full bg-yellow-100">
+      <MainBanner />
+      <CategoryList />
+    </div>
+  );
 };
 
 export default Home;
