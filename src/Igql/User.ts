@@ -3,10 +3,17 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { UserRole } from "./globalTypes";
+
 // ====================================================
-// GraphQL query operation: logout
+// GraphQL fragment: User
 // ====================================================
 
-export interface logout {
-  logout: boolean;
+export interface User {
+  __typename: "User";
+  id: number;
+  email: string;
+  username: string;
+  role: UserRole;
+  verified: boolean;
 }

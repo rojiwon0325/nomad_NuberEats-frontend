@@ -1,9 +1,32 @@
 import React from "react";
-import { me_me } from "Igql/me";
+import { Link } from "react-router-dom";
+import {
+  findAllMyRestaurant,
+  findAllMyRestaurantVariables,
+} from "Igql/findAllMyRestaurant";
+import { FINDALLMYRESTAURANT_QUERY } from "Apollo/Query/restaurant";
+import { useQuery } from "@apollo/client";
+import { User } from "Igql/User";
+import { RestaurantList } from "Component";
 
-const OwnerHome: React.FC<{ user: me_me }> = () => {
+const OwnerHome: React.FC<{ user: User }> = () => {
+  const { data, error } = useQuery<
+    findAllMyRestaurant,
+    findAllMyRestaurantVariables
+  >(FINDALLMYRESTAURANT_QUERY);
   return (
-    <div className="h-full w-full bg-yellow-100">자영업자 페이지 제작중...</div>
+    <div className="h-full w-full flex-center flex-col justify-start bg-yellow-100">
+      <div className="py-2 sm:py-5 w-full flex-center bg-white">
+        <span>사장님의 식당을 등록해주세요.</span>
+        <Link
+          to="/restaurant/register"
+          className="py-3 px-6 border-2 border-black mx-2 opacity-50 rounded-lg hover:opacity-100"
+        >
+          나의 식당 등록하기
+        </Link>
+      </div>
+      <RestaurantList restaurants={data?.findAllMyRestaurant.result ?? null} />
+    </div>
   );
 };
 

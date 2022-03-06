@@ -1,13 +1,18 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { Home, Join, Login, NotFound, Verification } from "Route";
-import { AuthLayout, HomeLayout, RootLayout } from "Component";
+import {
+  Home,
+  Join,
+  Login,
+  NotFound,
+  RestaurantRegister,
+  Verification,
+} from "Route";
+import { HomeLayout, RootLayout } from "Component";
 import { useQuery } from "@apollo/client";
-import { ISLOGIN_QUERY, ME_QUERY } from "Apollo/Query/user";
+import { ISLOGIN_QUERY } from "Apollo/Query/user";
 import { isLogin as IsLogin } from "Igql/isLogin";
-import { me } from "Igql/me";
 
 function App() {
-  const { data: mydata } = useQuery<me>(ME_QUERY);
   const { loading, data } = useQuery<IsLogin>(ISLOGIN_QUERY);
   if (loading) {
     return <div>loading.......</div>;
@@ -16,22 +21,26 @@ function App() {
     <RootLayout>
       <Routes>
         {data?.isLogin ? (
-          <Route path="/" element={<HomeLayout user={mydata?.me ?? null} />}>
-            <Route index element={<Home user={mydata?.me ?? null} />} />
+          <>
+            <Route path="/" element={<HomeLayout />}>
+              <Route index element={<Home />} />
+              <Route
+                path="restaurant/register"
+                element={<RestaurantRegister />}
+              />
+              <Route path="login" element={<Navigate to="/" replace />} />
+              <Route path="join" element={<Navigate to="/" replace />} />
+            </Route>
             <Route path="*" element={<NotFound />} />
-          </Route>
+          </>
         ) : (
-          <Route path="/" element={<AuthLayout />}>
-            <Route index element={<Login />} />
+          <>
             <Route path="login" element={<Login />} />
             <Route path="join" element={<Join />} />
             <Route path="*" element={<Navigate replace to="/login" />} />
-          </Route>
+          </>
         )}
-        <Route path="verification" element={<AuthLayout />}>
-          <Route index element={<NotFound />} />
-          <Route path=":code" element={<Verification />} />
-        </Route>
+        <Route path="verification/:code" element={<Verification />} />
       </Routes>
     </RootLayout>
   );

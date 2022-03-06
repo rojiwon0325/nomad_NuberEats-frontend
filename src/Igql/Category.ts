@@ -4,9 +4,13 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: logout
+// GraphQL fragment: Category
 // ====================================================
 
-export interface logout {
-  logout: boolean;
+export interface Category {
+  __typename: "Category";
+  id: number;
+  name: string;
+  coverImage: string;
+  restaurantCount: number;
 }

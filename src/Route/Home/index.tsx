@@ -1,15 +1,21 @@
+import { useQuery } from "@apollo/client";
+import { ME_QUERY } from "Apollo/Query/user";
 import { UserRole } from "Igql/globalTypes";
-import { me_me } from "Igql/me";
-import React from "react";
+import { me } from "Igql/me";
+import React, { useMemo } from "react";
 import ClientHome from "./ClientHome";
 import OwnerHome from "./OwnerHome";
 
-const Home: React.FC<{ user: me_me | null }> = ({ user }) => {
+const Home: React.FC = () => {
+  const { data } = useQuery<me>(ME_QUERY);
+  const user = useMemo(() => data?.me ?? null, [data]);
   if (user === null) {
     return <div>loading...</div>;
   }
   if (!user.verified) {
-    return <div>이메일 인증을 진행해주세요.</div>;
+    return (
+      <div className="w-full text-center">이메일 인증을 진행해주세요.</div>
+    );
   }
   switch (user.role) {
     case UserRole.Client:

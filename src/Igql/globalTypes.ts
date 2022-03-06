@@ -17,8 +17,15 @@ export enum UserRole {
 export interface CreateAccountInput {
   email: string;
   username: string;
-  password: string;
   role: UserRole;
+  password: string;
+}
+
+export interface CreateRestaurantInput {
+  name: string;
+  coverImage: string;
+  address: string;
+  category?: string | null;
 }
 
 export interface LoginInput {

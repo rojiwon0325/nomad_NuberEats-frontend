@@ -1,17 +1,16 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import Logo from "./Logo";
 
-const AuthLayout: React.FC = () => {
+const AuthLayout: React.FC = ({ children }) => {
   return (
     <>
       <header className="h-12 w-full sm:h-20 px-4 sm:px-9 flex items-center bg-black">
         <Logo />
       </header>
-      <div className="flex-1 flex flex-col items-center justify-center">
+      <div className="flex-1 flex-center flex-col">
         <div className="h-full sm:h-auto w-full flex flex-col px-4 sm:px-9 sm:pt-6 sm:max-w-md">
           <div className="w-full h-full pt-4 flex flex-col items-center justify-between">
-            <Outlet />
+            {children}
           </div>
           <footer className="flex flex-col items-center text-center">
             <div className="py-5">

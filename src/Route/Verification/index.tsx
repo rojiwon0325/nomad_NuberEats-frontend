@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { ME_QUERY, VERIFYEMAIL_MUTATION } from "Apollo/Query/user";
+import { AuthLayout } from "Component";
 import { verifyEmail, verifyEmailVariables } from "Igql/verifyEmail";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -27,12 +28,14 @@ const Verification: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-full w-full flex flex-col items-center justify-center">
-      <span className="m-1 font-medium text-xl">{verifyState}</span>
-      <Link to="/" className="hover:underline">
-        홈으로 이동
-      </Link>
-    </div>
+    <AuthLayout>
+      <div className="h-full w-full flex-center flex-col">
+        <span className="m-1 font-medium text-xl">{verifyState}</span>
+        <Link to="/" className="hover:underline">
+          홈으로 이동
+        </Link>
+      </div>
+    </AuthLayout>
   );
 };
 

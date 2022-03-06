@@ -2,7 +2,12 @@ import { ApolloClient, InMemoryCache, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
-import { getMainDefinition } from "@apollo/client/utilities";
+import {
+  getMainDefinition,
+  offsetLimitPagination,
+} from "@apollo/client/utilities";
+import { ISLOGIN_QUERY } from "./Query/user";
+import { findAllMyRestaurant_findAllMyRestaurant } from "Igql/findAllMyRestaurant";
 
 const server = "//localhost:4000/graphql";
 
@@ -22,7 +27,13 @@ const uploadHttpLink = createUploadLink({
 
 const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    // console.log("GraphQL Error", graphQLErrors);
+    //console.log(graphQLErrors);
+    graphQLErrors.forEach(({ message }) =>
+      message === "Forbidden resource"
+        ? client.refetchQueries({ include: [ISLOGIN_QUERY] })
+        : null
+    );
+    //console.log(graphQLErrors);
   }
   if (networkError) {
     // console.log("Network Error", networkError);
@@ -43,7 +54,25 @@ const splitLink = split(
   httpLink
 );
 
+const filtering = (array: { __ref: string }[]) => {
+  return array.filter(
+    (item1, idx) =>
+      array.findIndex((item2) => item1.__ref === item2.__ref) === idx
+  );
+};
+
 export const client = new ApolloClient({
   link: splitLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          findAllMyRestaurant: {
+            keyArgs: false,
+            merge: (exi, inc) => inc,
+          },
+        },
+      },
+    },
+  }),
 });

@@ -3,18 +3,18 @@ import { Link, Outlet } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useApolloClient, useLazyQuery } from "@apollo/client";
-import { LOGOUT_QUERY } from "Apollo/Query/user";
-import { me_me } from "Igql/me";
+import { useApolloClient, useLazyQuery, useQuery } from "@apollo/client";
+import { LOGOUT_QUERY, ME_QUERY } from "Apollo/Query/user";
+import { me } from "Igql/me";
 
-const HomeLayout: React.FC<{ user: me_me | null }> = ({ user }) => {
+const HomeLayout: React.FC = () => {
   return (
     <>
       <Helmet>
         <title>Nuber | Home</title>
       </Helmet>
-      <Header user={user} />
-      <div className="flex-1 flex flex-col items-center justify-center">
+      <Header />
+      <div className="flex-1 flex-center flex-col">
         <div className="h-full w-full flex flex-col">
           <Outlet />
           <Footer />
@@ -26,18 +26,13 @@ const HomeLayout: React.FC<{ user: me_me | null }> = ({ user }) => {
 
 export default HomeLayout;
 
-const Header: React.FC<{ user: me_me | null }> = () => {
+const Header: React.FC = () => {
+  const { data } = useQuery<me>(ME_QUERY);
   const client = useApolloClient();
   const [logoutFn] = useLazyQuery(LOGOUT_QUERY);
   const logout = useCallback(async () => {
     await logoutFn();
-    client.cache.modify({
-      id: "ROOT_QUERY",
-      fields: {
-        me: () => null,
-        isLogin: () => false,
-      },
-    });
+    client.resetStore();
   }, [client, logoutFn]);
   return (
     <header className="h-14 sm:h-24 w-full px-5 sm:px-10 border-b-2 border-gray-200 flex items-center justify-between bg-white">

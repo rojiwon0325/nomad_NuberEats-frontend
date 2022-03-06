@@ -1,15 +1,22 @@
 import { gql } from "@apollo/client";
 
+export const USER_FRAGMENT = gql`
+  fragment User on User {
+    id
+    email
+    username
+    role
+    verified
+  }
+`;
+
 export const ME_QUERY = gql`
   query me {
     me {
-      id
-      email
-      username
-      role
-      verified
+      ...User
     }
   }
+  ${USER_FRAGMENT}
 `;
 
 export const ISLOGIN_QUERY = gql`

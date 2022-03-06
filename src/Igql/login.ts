@@ -10,7 +10,7 @@ import { LoginInput } from "./globalTypes";
 // ====================================================
 
 export interface login_login {
-  __typename: "LoginOutput";
+  __typename: "CoreOutput";
   ok: boolean;
   error: string | null;
 }
