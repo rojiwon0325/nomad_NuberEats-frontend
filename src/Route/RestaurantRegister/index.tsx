@@ -85,12 +85,12 @@ const RestaurantRegister: React.FC = () => {
       })
   );
   return (
-    <div className="h-full w-full flex justify-center bg-yellow-50">
+    <div className="h-full w-full sm:max-w-md mt-10 flex justify-center rounded-2xl bg-black">
       <form
         onSubmit={onSubmit}
         className="h-fit w-full mt-2 mb-5 px-5 flex flex-col items-center sm:max-w-md relative"
       >
-        <h1 className="text-2xl m-0 font-normal">가게 정보 입력</h1>
+        <h1 className="text-2xl m-0 font-normal text-white">가게 정보 입력</h1>
         <div className="h-4" />
         <input
           {...nameRegister}
@@ -133,7 +133,9 @@ const RestaurantRegister: React.FC = () => {
         <div className="h-4" />
         <button
           type="submit"
-          className={`auth_btn ${isValid ? "" : "btn_disabled"}`}
+          className={`py-3 px-5 my-1 w-full rounded-lg bg-green-400 font-medium text-lg text-white ${
+            isValid ? "" : "opacity-80 disabled"
+          }`}
           disabled={!isValid}
         >
           등록

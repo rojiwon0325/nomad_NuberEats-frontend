@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useApolloClient, useLazyQuery, useQuery } from "@apollo/client";
@@ -9,18 +8,15 @@ import { me } from "Igql/me";
 
 const HomeLayout: React.FC = () => {
   return (
-    <>
-      <Helmet>
-        <title>Nuber | Home</title>
-      </Helmet>
-      <Header />
-      <div className="flex-1 flex-center flex-col">
-        <div className="h-full w-full flex flex-col">
+    <div className="h-full w-full flex flex-col justify-between">
+      <div>
+        <Header />
+        <div className="flex-center flex-col">
           <Outlet />
-          <Footer />
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 
@@ -62,7 +58,7 @@ const Header: React.FC = () => {
 };
 
 const Footer = () => (
-  <footer className="flex flex-col items-center text-center">
+  <footer className="h-fit flex flex-col items-center text-center">
     <div className="py-5">
       <a className="px-1 text-gray-700 cursor-pointer">개인정보 보호정책</a>|
       <a className="px-1 text-gray-700 cursor-pointer">이용 약관</a>

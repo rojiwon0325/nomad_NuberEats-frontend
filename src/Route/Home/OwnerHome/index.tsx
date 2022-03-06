@@ -15,12 +15,12 @@ const OwnerHome: React.FC<{ user: User }> = () => {
     findAllMyRestaurantVariables
   >(FINDALLMYRESTAURANT_QUERY);
   return (
-    <div className="h-full w-full flex-center flex-col justify-start bg-yellow-100">
-      <div className="py-2 sm:py-5 w-full flex-center bg-white">
-        <span>사장님의 식당을 등록해주세요.</span>
+    <div className="h-full w-full flex-center flex-col justify-start">
+      <div className="py-2 sm:py-5 w-full flex-center bg-gray-800">
+        <span className="text-white">사장님의 식당을 등록해주세요.</span>
         <Link
           to="/restaurant/register"
-          className="py-3 px-6 border-2 border-black mx-2 opacity-50 rounded-lg hover:opacity-100"
+          className="py-3 px-6 border-2 border-white mx-2 opacity-80 rounded-lg hover:opacity-100 text-white"
         >
           나의 식당 등록하기
         </Link>
