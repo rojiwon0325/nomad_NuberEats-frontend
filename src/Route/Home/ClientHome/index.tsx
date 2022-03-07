@@ -2,12 +2,23 @@ import React from "react";
 import CategoryList from "./CategoryList";
 import MainBanner from "../MainBanner";
 import { User } from "Igql/User";
+import { RestaurantList } from "Component";
+import { useQuery } from "@apollo/client";
+import { FINDALLRESTAURANT_QUERY } from "Apollo/Query/restaurant";
+import {
+  findAllRestaurant,
+  findAllRestaurantVariables,
+} from "Igql/findAllRestaurant";
 
 const ClientHome: React.FC<{ user: User }> = () => {
+  const { data } = useQuery<findAllRestaurant, findAllRestaurantVariables>(
+    FINDALLRESTAURANT_QUERY
+  );
   return (
-    <div className="h-full w-full bg-yellow-100">
+    <div className="h-full w-full">
       <MainBanner />
       <CategoryList />
+      <RestaurantList restaurants={data?.findAllRestaurant.result ?? []} />
     </div>
   );
 };

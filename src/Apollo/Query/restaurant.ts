@@ -26,6 +26,20 @@ export const FINDALLMYRESTAURANT_QUERY = gql`
   ${RESTAURANT_FRAGMENT}
 `;
 
+export const FINDALLRESTAURANT_QUERY = gql`
+  query findAllRestaurant($page: Int) {
+    findAllRestaurant(page: $page) {
+      ok
+      error
+      totalResults
+      result {
+        ...Restaurant
+      }
+    }
+  }
+  ${RESTAURANT_FRAGMENT}
+`;
+
 export const CREATERESTAURANT_MUTATION = gql`
   mutation createRestaurant($restaurant: CreateRestaurantInput!) {
     createRestaurant(restaurant: $restaurant) {

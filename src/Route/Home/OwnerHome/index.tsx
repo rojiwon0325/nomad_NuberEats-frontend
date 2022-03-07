@@ -25,7 +25,7 @@ const OwnerHome: React.FC<{ user: User }> = () => {
           나의 식당 등록하기
         </Link>
       </div>
-      <RestaurantList restaurants={data?.findAllMyRestaurant.result ?? null} />
+      <RestaurantList restaurants={data?.findAllMyRestaurant.result ?? []} />
     </div>
   );
 };
