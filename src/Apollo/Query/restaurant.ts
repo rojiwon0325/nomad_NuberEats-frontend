@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { USER_FRAGMENT } from "./user";
 
 export const RESTAURANT_FRAGMENT = gql`
   fragment Restaurant on Restaurant {
@@ -8,6 +9,23 @@ export const RESTAURANT_FRAGMENT = gql`
     address
     category {
       name
+    }
+  }
+`;
+
+export const DISH_FRAGMENT = gql`
+  fragment Dish on Dish {
+    id
+    name
+    price
+    coverImage
+    description
+    option {
+      name
+      choice {
+        name
+        extraPrice
+      }
     }
   }
 `;
@@ -38,6 +56,24 @@ export const FINDALLRESTAURANT_QUERY = gql`
     }
   }
   ${RESTAURANT_FRAGMENT}
+`;
+
+export const FINDRESTAURANTBYID_QUERY = gql`
+  query findRestaurantById($id: Int!) {
+    findRestaurantById(id: $id) {
+      ok
+      error
+      result {
+        ...Restaurant
+        ownerId
+        menu {
+          ...Dish
+        }
+      }
+    }
+  }
+  ${RESTAURANT_FRAGMENT}
+  ${DISH_FRAGMENT}
 `;
 
 export const CREATERESTAURANT_MUTATION = gql`

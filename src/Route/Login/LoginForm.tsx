@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useApolloClient, useMutation } from "@apollo/client";
-import { ISLOGIN_QUERY, LOGIN_MUTATION, ME_QUERY } from "Apollo/Query/user";
+import { ISLOGIN_QUERY, LOGIN_MUTATION } from "Apollo/Query/user";
 import { ErrorMessage } from "Component";
 import { login, loginVariables } from "Igql/login";
 import { useForm } from "react-hook-form";
@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
     {
       onCompleted: async ({ login: { ok, error } }) => {
         if (ok) {
-          client.refetchQueries({ include: [ISLOGIN_QUERY, ME_QUERY] });
+          client.refetchQueries({ include: [ISLOGIN_QUERY] });
           navigate("/");
         } else {
           setError("result", { message: error ?? undefined });

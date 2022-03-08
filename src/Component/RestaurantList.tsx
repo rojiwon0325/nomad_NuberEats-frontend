@@ -6,7 +6,7 @@ const RestaurantList: React.FC<{
   restaurants: Restaurant[];
 }> = ({ restaurants }) => {
   return (
-    <div className="h-full w-full max-w-5xl px-2 flex flex-wrap">
+    <div className="w-full max-w-5xl px-2 flex flex-wrap">
       {restaurants.map((restaurant) => (
         <RestaurantItem restaurant={restaurant} key={restaurant.id} />
       ))}

@@ -2,16 +2,15 @@ import React, { useCallback } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useApolloClient, useLazyQuery, useQuery } from "@apollo/client";
-import { LOGOUT_QUERY, ME_QUERY } from "Apollo/Query/user";
-import { me } from "Igql/me";
+import { useLazyQuery } from "@apollo/client";
+import { ISLOGIN_QUERY, LOGOUT_QUERY } from "Apollo/Query/user";
 
 const HomeLayout: React.FC = () => {
   return (
-    <div className="h-full w-full flex flex-col justify-between">
-      <div>
+    <div className="h-full w-full flex flex-col items-center justify-between">
+      <div className="w-full flex flex-col items-center">
         <Header />
-        <div className="flex-center flex-col">
+        <div className="w-full flex-center flex-col">
           <Outlet />
         </div>
       </div>
@@ -23,13 +22,12 @@ const HomeLayout: React.FC = () => {
 export default HomeLayout;
 
 const Header: React.FC = () => {
-  const { data } = useQuery<me>(ME_QUERY);
-  const client = useApolloClient();
   const [logoutFn] = useLazyQuery(LOGOUT_QUERY);
+  const [isLoginFn] = useLazyQuery(ISLOGIN_QUERY);
   const logout = useCallback(async () => {
     await logoutFn();
-    client.resetStore();
-  }, [client, logoutFn]);
+    await isLoginFn();
+  }, []);
   return (
     <header className="h-14 sm:h-24 w-full px-5 sm:px-10 border-b-2 border-gray-200 flex items-center justify-between bg-white">
       <div className="flex items-center flex-1">
@@ -58,7 +56,7 @@ const Header: React.FC = () => {
 };
 
 const Footer = () => (
-  <footer className="h-fit flex flex-col items-center text-center">
+  <footer className="flex-center flex-col">
     <div className="py-5">
       <a className="px-1 text-gray-700 cursor-pointer">개인정보 보호정책</a>|
       <a className="px-1 text-gray-700 cursor-pointer">이용 약관</a>

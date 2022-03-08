@@ -88,10 +88,9 @@ const RestaurantRegister: React.FC = () => {
     <div className="h-full w-full sm:max-w-md mt-10 flex justify-center rounded-2xl bg-black">
       <form
         onSubmit={onSubmit}
-        className="h-fit w-full mt-2 mb-5 px-5 flex flex-col items-center sm:max-w-md relative"
+        className="h-fit w-full mb-5 px-5 flex flex-col items-center sm:max-w-md relative"
       >
-        <h1 className="text-2xl m-0 font-normal text-white">가게 정보 입력</h1>
-        <div className="h-4" />
+        <h1 className="text-2xl py-3 font-normal text-white">가게 정보 입력</h1>
         <input
           {...nameRegister}
           onChange={(e) => {

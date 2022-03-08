@@ -4,16 +4,26 @@ import {
   Join,
   Login,
   NotFound,
+  RestaurantDashboard,
   RestaurantRegister,
   Verification,
 } from "Route";
-import { HomeLayout, RootLayout } from "Component";
-import { useQuery } from "@apollo/client";
+import { AuthLayout, HomeLayout, RootLayout } from "Component";
+import { useApolloClient, useQuery } from "@apollo/client";
 import { ISLOGIN_QUERY } from "Apollo/Query/user";
 import { isLogin as IsLogin } from "Igql/isLogin";
+import { useEffect } from "react";
 
 function App() {
+  const client = useApolloClient();
+
   const { loading, data } = useQuery<IsLogin>(ISLOGIN_QUERY);
+  useEffect(() => {
+    if (data?.isLogin === false) {
+      client.resetStore();
+    }
+  }, [data]);
+
   if (loading) {
     return <div>loading.......</div>;
   }
@@ -24,14 +34,21 @@ function App() {
           <>
             <Route path="/" element={<HomeLayout />}>
               <Route index element={<Home />} />
-              <Route
-                path="restaurant/register"
-                element={<RestaurantRegister />}
-              />
+              <Route path="restaurant">
+                <Route path="register" element={<RestaurantRegister />} />
+                <Route path=":id" element={<RestaurantDashboard />} />
+              </Route>
               <Route path="login" element={<Navigate to="/" replace />} />
               <Route path="join" element={<Navigate to="/" replace />} />
             </Route>
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="*"
+              element={
+                <AuthLayout>
+                  <NotFound />
+                </AuthLayout>
+              }
+            />
           </>
         ) : (
           <>

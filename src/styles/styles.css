@@ -587,12 +587,12 @@ body {
   margin-right: 0.5rem;
 }
 
-.mt-10 {
-  margin-top: 2.5rem;
+.mb-2 {
+  margin-bottom: 0.5rem;
 }
 
-.mt-2 {
-  margin-top: 0.5rem;
+.mt-10 {
+  margin-top: 2.5rem;
 }
 
 .mt-1 {
@@ -623,12 +623,6 @@ body {
   height: 1.25rem;
 }
 
-.h-fit {
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-}
-
 .h-12 {
   height: 3rem;
 }
@@ -641,12 +635,14 @@ body {
   height: 1rem;
 }
 
-.h-4\/6 {
-  height: 66.666667%;
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
-.h-auto {
-  height: auto;
+.h-4\/6 {
+  height: 66.666667%;
 }
 
 .w-full {
@@ -659,6 +655,12 @@ body {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 
 .w-12 {
@@ -831,6 +833,16 @@ body {
   padding-right: 1rem;
 }
 
+.py-24 {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
 .py-3 {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -868,8 +880,12 @@ body {
   padding-bottom: 0.5rem;
 }
 
-.pt-4 {
-  padding-top: 1rem;
+.pl-9 {
+  padding-left: 2.25rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
 }
 
 .text-center {
@@ -901,6 +917,11 @@ body {
   line-height: 2.25rem;
 }
 
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -916,6 +937,10 @@ body {
 
 .font-bold {
   font-weight: 700;
+}
+
+.font-light {
+  font-weight: 300;
 }
 
 .text-gray-700 {
@@ -1001,10 +1026,6 @@ body {
     height: 5rem;
   }
 
-  .sm\:h-auto {
-    height: auto;
-  }
-
   .sm\:h-80 {
     height: 20rem;
   }
@@ -1043,6 +1064,11 @@ body {
     padding-right: 2.25rem;
   }
 
+  .sm\:py-36 {
+    padding-top: 9rem;
+    padding-bottom: 9rem;
+  }
+
   .sm\:py-5 {
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
@@ -1054,6 +1080,11 @@ body {
 
   .sm\:pt-6 {
     padding-top: 1.5rem;
+  }
+
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 

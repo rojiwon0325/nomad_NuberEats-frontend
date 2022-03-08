@@ -4,7 +4,7 @@ import Logo from "./Logo";
 const AuthLayout: React.FC = ({ children }) => {
   return (
     <div className="h-full w-full flex flex-col items-center justify-between">
-      <div className="h-full w-full flex flex-col items-center">
+      <div className="w-full flex flex-col items-center">
         <Header />
         <div className="w-full flex flex-col px-4 sm:px-9 sm:pt-6 sm:max-w-md">
           {children}
@@ -23,7 +23,7 @@ const Header = () => (
 );
 
 const Footer = () => (
-  <footer className="flex flex-col items-center text-center">
+  <footer className="flex-center flex-col">
     <div className="py-5">
       <a className="px-1 text-gray-700 cursor-pointer">개인정보 보호정책</a>|
       <a className="px-1 text-gray-700 cursor-pointer">이용 약관</a>

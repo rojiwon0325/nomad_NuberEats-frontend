@@ -2,12 +2,8 @@ import { ApolloClient, InMemoryCache, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
-import {
-  getMainDefinition,
-  offsetLimitPagination,
-} from "@apollo/client/utilities";
+import { getMainDefinition } from "@apollo/client/utilities";
 import { ISLOGIN_QUERY } from "./Query/user";
-import { findAllMyRestaurant_findAllMyRestaurant } from "Igql/findAllMyRestaurant";
 
 const server = "//localhost:4000/graphql";
 
@@ -27,7 +23,6 @@ const uploadHttpLink = createUploadLink({
 
 const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
-    //console.log(graphQLErrors);
     graphQLErrors.forEach(({ message }) =>
       message === "Forbidden resource"
         ? client.refetchQueries({ include: [ISLOGIN_QUERY] })
@@ -69,7 +64,7 @@ export const client = new ApolloClient({
         fields: {
           findAllMyRestaurant: {
             keyArgs: false,
-            merge: (exi, inc) => inc,
+            merge: (_, inc) => inc,
           },
         },
       },
