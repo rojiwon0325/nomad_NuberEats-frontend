@@ -9,6 +9,7 @@ import {
   findAllRestaurant,
   findAllRestaurantVariables,
 } from "Igql/findAllRestaurant";
+import { Helmet } from "react-helmet-async";
 
 const ClientHome: React.FC<{ user: User }> = () => {
   const { data } = useQuery<findAllRestaurant, findAllRestaurantVariables>(
@@ -16,6 +17,9 @@ const ClientHome: React.FC<{ user: User }> = () => {
   );
   return (
     <div className="h-full w-full">
+      <Helmet>
+        <title>Home | Nubereats</title>
+      </Helmet>
       <MainBanner />
       <CategoryList />
       <RestaurantList restaurants={data?.findAllRestaurant.result ?? []} />

@@ -1,7 +1,11 @@
-import { ApolloClient, InMemoryCache, split } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  split,
+} from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { onError } from "@apollo/client/link/error";
-import { createUploadLink } from "apollo-upload-client";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { ISLOGIN_QUERY } from "./Query/user";
 
@@ -14,7 +18,7 @@ const wsLink = new WebSocketLink({
   },
 });
 
-const uploadHttpLink = createUploadLink({
+const httpLink = createHttpLink({
   uri: "http:" + server,
   credentials: "include", // cookie를 얻기 위한 설정
   // include - 서버 도메인이 다름
@@ -35,7 +39,7 @@ const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
-const httpLink = onErrorLink.concat(uploadHttpLink);
+const graphqlLink = onErrorLink.concat(httpLink);
 
 const splitLink = split(
   ({ query }) => {
@@ -46,7 +50,7 @@ const splitLink = split(
     );
   },
   wsLink,
-  httpLink
+  graphqlLink
 );
 
 const filtering = (array: { __ref: string }[]) => {

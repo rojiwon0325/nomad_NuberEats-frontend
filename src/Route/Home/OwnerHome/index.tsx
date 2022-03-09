@@ -8,6 +8,7 @@ import { FINDALLMYRESTAURANT_QUERY } from "Apollo/Query/restaurant";
 import { useQuery } from "@apollo/client";
 import { User } from "Igql/User";
 import { RestaurantList } from "Component";
+import { Helmet } from "react-helmet-async";
 
 const OwnerHome: React.FC<{ user: User }> = () => {
   const { data, error } = useQuery<
@@ -16,6 +17,9 @@ const OwnerHome: React.FC<{ user: User }> = () => {
   >(FINDALLMYRESTAURANT_QUERY);
   return (
     <div className="h-full w-full flex-center flex-col justify-start">
+      <Helmet>
+        <title>My Restaurants | Nubereats</title>
+      </Helmet>
       <div className="py-2 sm:py-5 w-full flex-center bg-gray-800">
         <span className="text-white">사장님의 식당을 등록해주세요.</span>
         <Link

@@ -1,9 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { FINDALLCATEGORY_QUERY } from "Apollo/Query/category";
-import {
-  CREATERESTAURANT_MUTATION,
-  FINDALLMYRESTAURANT_QUERY,
-} from "Apollo/Query/restaurant";
+import { CREATERESTAURANT_MUTATION } from "Apollo/Query/restaurant";
 import { ME_QUERY } from "Apollo/Query/user";
 import { ErrorMessage } from "Component";
 import {
@@ -13,15 +10,17 @@ import {
 import { findAllCategory } from "Igql/findAllCategory";
 import { CreateRestaurantInput, UserRole } from "Igql/globalTypes";
 import { me } from "Igql/me";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
 
 interface IForm extends CreateRestaurantInput {
+  file: FileList;
   result: string;
 }
 
 const RestaurantRegister: React.FC = () => {
+  const [loading, setLoad] = useState(false);
   const { data: myData } = useQuery<me>(ME_QUERY);
   if (!myData?.me || myData.me.role !== UserRole.Owner) {
     return <Navigate to="/" replace />;
@@ -39,7 +38,7 @@ const RestaurantRegister: React.FC = () => {
   const nameRegister = register("name", {
     required: "가게 이름이 필요합니다.",
   });
-  const coverImageRegister = register("coverImage", {
+  const fileRegister = register("file", {
     required: "가게 이미지가 필요합니다.",
   });
   const addressRegister = register("address", {
@@ -47,11 +46,12 @@ const RestaurantRegister: React.FC = () => {
   });
   const categoryRegister = register("category");
   const { data } = useQuery<findAllCategory>(FINDALLCATEGORY_QUERY);
-  const [createRestaurantMutation, { loading }] = useMutation<
+  const [createRestaurantMutation] = useMutation<
     createRestaurant,
     createRestaurantVariables
   >(CREATERESTAURANT_MUTATION, {
     onCompleted: async ({ createRestaurant: { ok, error } }) => {
+      setLoad(false);
       if (ok) {
         navigate("/");
       } else {
@@ -77,17 +77,48 @@ const RestaurantRegister: React.FC = () => {
       }
     },
   });
-  const onSubmit = handleSubmit(
-    ({ name, coverImage, category, address }) =>
-      loading ||
-      createRestaurantMutation({
-        variables: { restaurant: { name, coverImage, category, address } },
-      })
+  const onSubmit = useCallback(
+    async ({ file, name, category, address }: IForm) => {
+      if (loading) {
+        return;
+      }
+      try {
+        setLoad(true);
+        const body = new FormData();
+        body.append("file", file[0]);
+        const { url: coverImage } = await fetch(
+          "http://localhost:4000/upload",
+          {
+            method: "POST",
+            credentials: "include",
+            body,
+          }
+        ).then((res) => res.json());
+        if (coverImage) {
+          createRestaurantMutation({
+            variables: {
+              restaurant: {
+                name,
+                coverImage,
+                category,
+                address,
+              },
+            },
+          });
+        } else {
+          setError("result", { message: "이미지 업로드에 실패하였습니다." });
+        }
+      } catch (e) {
+        console.log(e);
+      }
+      setLoad(false);
+    },
+    [loading, setLoad, createRestaurantMutation]
   );
   return (
     <div className="h-full w-full sm:max-w-md mt-10 flex justify-center rounded-2xl bg-black">
       <form
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className="h-fit w-full mb-5 px-5 flex flex-col items-center sm:max-w-md relative"
       >
         <h1 className="text-2xl py-3 font-normal text-white">가게 정보 입력</h1>
@@ -111,14 +142,15 @@ const RestaurantRegister: React.FC = () => {
           className="auth_input"
         />
         <input
-          {...coverImageRegister}
+          {...fileRegister}
           onChange={(e) => {
             clearErrors();
-            coverImageRegister.onChange(e);
+            fileRegister.onChange(e);
           }}
-          placeholder={"가게 이미지 주소"}
+          placeholder={"가게 이미지"}
           className="auth_input"
-          type="url"
+          accept="image/*"
+          type="file"
         />
         <select
           {...categoryRegister}
@@ -133,9 +165,9 @@ const RestaurantRegister: React.FC = () => {
         <button
           type="submit"
           className={`py-3 px-5 my-1 w-full rounded-lg bg-green-400 font-medium text-lg text-white ${
-            isValid ? "" : "opacity-80 disabled"
+            isValid && !loading ? "" : "opacity-80 disabled"
           }`}
-          disabled={!isValid}
+          disabled={!isValid || loading}
         >
           등록
         </button>
@@ -144,7 +176,8 @@ const RestaurantRegister: React.FC = () => {
             errors.name?.message ??
             errors.address?.message ??
             errors.coverImage?.message ??
-            errors.category?.message
+            errors.category?.message ??
+            errors.result?.message
           }
         />
       </form>

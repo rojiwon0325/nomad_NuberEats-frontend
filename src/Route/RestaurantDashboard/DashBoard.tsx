@@ -1,10 +1,17 @@
+import { useQuery } from "@apollo/client";
+import { ME_QUERY } from "Apollo/Query/user";
 import { findRestaurantById_findRestaurantById_result } from "Igql/findRestaurantById";
+import { UserRole } from "Igql/globalTypes";
+import { me } from "Igql/me";
 import React from "react";
 import { Helmet } from "react-helmet-async";
+import ClientBoard from "./ClientBoard";
+import OwnerBoard from "./OwnerBoard";
 
 const DashBoard: React.FC<{
   restaurant: findRestaurantById_findRestaurantById_result;
 }> = ({ restaurant }) => {
+  const { data } = useQuery<me>(ME_QUERY);
   return (
     <div className="w-full flex flex-col items-center">
       <Helmet>
@@ -27,7 +34,11 @@ const DashBoard: React.FC<{
         </div>
       </div>
 
-      <div id="content"></div>
+      {data?.me?.role === UserRole.Owner ? (
+        <OwnerBoard menu={restaurant.menu} />
+      ) : (
+        <ClientBoard menu={restaurant.menu} />
+      )}
     </div>
   );
 };
