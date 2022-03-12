@@ -5,6 +5,8 @@ import _Verification from "./Verification";
 import _NotFound from "./NotFound";
 import _RestaurantRegister from "./RestaurantRegister";
 import _RestaurantDashboard from "./RestaurantDashboard";
+import _MenuRegister from "./MenuRegister";
+import _RestaurantInfo from "./RestaurantInfo";
 
 export const Home = _Home;
 
@@ -19,3 +21,7 @@ export const NotFound = _NotFound;
 export const RestaurantRegister = _RestaurantRegister;
 
 export const RestaurantDashboard = _RestaurantDashboard;
+
+export const MenuRegister = _MenuRegister;
+
+export const RestaurantInfo = _RestaurantInfo;

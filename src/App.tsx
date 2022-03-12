@@ -3,8 +3,10 @@ import {
   Home,
   Join,
   Login,
+  MenuRegister,
   NotFound,
   RestaurantDashboard,
+  RestaurantInfo,
   RestaurantRegister,
   Verification,
 } from "Route";
@@ -35,8 +37,12 @@ function App() {
             <Route path="/" element={<HomeLayout />}>
               <Route index element={<Home />} />
               <Route path="restaurant">
+                <Route index element={<NotFound />} />
                 <Route path="register" element={<RestaurantRegister />} />
-                <Route path=":id" element={<RestaurantDashboard />} />
+                <Route path=":id" element={<RestaurantDashboard />}>
+                  <Route path="menu" element={<MenuRegister />} />
+                  <Route path="restaurantinfo" element={<RestaurantInfo />} />
+                </Route>
               </Route>
               <Route path="login" element={<Navigate to="/" replace />} />
               <Route path="join" element={<Navigate to="/" replace />} />

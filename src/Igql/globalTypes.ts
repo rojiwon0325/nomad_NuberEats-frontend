@@ -14,6 +14,11 @@ export enum UserRole {
   Rider = "Rider",
 }
 
+export interface ChoiceInputType {
+  name: string;
+  extraPrice: number;
+}
+
 export interface CreateAccountInput {
   email: string;
   username: string;
@@ -21,11 +26,24 @@ export interface CreateAccountInput {
   password: string;
 }
 
+export interface CreateDishInputType {
+  name: string;
+  price: number;
+  coverImage: string;
+  description?: string | null;
+  option?: DishOptionInputType[] | null;
+}
+
 export interface CreateRestaurantInput {
   name: string;
   coverImage: string;
   address: string;
   category?: string | null;
+}
+
+export interface DishOptionInputType {
+  name: string;
+  choice: ChoiceInputType[];
 }
 
 export interface LoginInput {

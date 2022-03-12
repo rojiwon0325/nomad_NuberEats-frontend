@@ -22,4 +22,17 @@ body {
 .flex-center {
   @apply flex items-center justify-center;
 }
+.modal_background {
+  @apply h-screen w-screen bg-opacity-50 bg-black fixed top-0 flex-center;
+}
+.modal_component {
+  @apply h-screen sm:h-auto w-full sm:max-w-md flex justify-center sm:rounded-2xl bg-black;
+}
+.modal_form {
+  @apply h-fit w-full mb-5 px-5 flex flex-col items-center sm:max-w-md relative;
+}
+.modal_goback {
+  @apply h-6 w-6 absolute top-0 right-0;
+}
+
 @tailwind utilities;

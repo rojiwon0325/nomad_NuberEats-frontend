@@ -9,6 +9,24 @@ import { onError } from "@apollo/client/link/error";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { ISLOGIN_QUERY } from "./Query/user";
 
+export const uploadCoverImage = async (
+  file: File
+): Promise<string | undefined> => {
+  try {
+    const body = new FormData();
+    body.append("file", file);
+    const response = await fetch("http://localhost:4000/upload", {
+      method: "POST",
+      credentials: "include",
+      body,
+    });
+    const { url } = await response.json();
+    return url;
+  } catch {
+    return undefined;
+  }
+};
+
 const server = "//localhost:4000/graphql";
 
 const wsLink = new WebSocketLink({

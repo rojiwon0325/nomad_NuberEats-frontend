@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { uploadCoverImage } from "Apollo/apollo";
 import { FINDALLCATEGORY_QUERY } from "Apollo/Query/category";
 import { CREATERESTAURANT_MUTATION } from "Apollo/Query/restaurant";
 import { ME_QUERY } from "Apollo/Query/user";
@@ -84,16 +85,7 @@ const RestaurantRegister: React.FC = () => {
       }
       try {
         setLoad(true);
-        const body = new FormData();
-        body.append("file", file[0]);
-        const { url: coverImage } = await fetch(
-          "http://localhost:4000/upload",
-          {
-            method: "POST",
-            credentials: "include",
-            body,
-          }
-        ).then((res) => res.json());
+        const coverImage = await uploadCoverImage(file[0]);
         if (coverImage) {
           createRestaurantMutation({
             variables: {

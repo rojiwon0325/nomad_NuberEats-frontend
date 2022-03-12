@@ -5,7 +5,7 @@ import {
   findRestaurantByIdVariables,
 } from "Igql/findRestaurantById";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import { NotFound } from "Route";
 import DashBoard from "./DashBoard";
 
@@ -17,7 +17,12 @@ const RestaurantDashboard: React.FC = () => {
   >(FINDRESTAURANTBYID_QUERY, { variables: { id: parseInt(id ?? "0") } });
 
   if (data?.findRestaurantById.result) {
-    return <DashBoard restaurant={data?.findRestaurantById.result} />;
+    return (
+      <>
+        <DashBoard restaurant={data?.findRestaurantById.result} />
+        <Outlet />
+      </>
+    );
   } else if (loading) {
     return <div>loading...</div>;
   } else {

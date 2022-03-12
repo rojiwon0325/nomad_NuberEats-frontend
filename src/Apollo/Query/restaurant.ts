@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import { USER_FRAGMENT } from "./user";
 
 export const RESTAURANT_FRAGMENT = gql`
   fragment Restaurant on Restaurant {
@@ -87,4 +86,27 @@ export const CREATERESTAURANT_MUTATION = gql`
     }
   }
   ${RESTAURANT_FRAGMENT}
+`;
+
+export const CREATEDISH_MUTATION = gql`
+  mutation createDish($restaurantId: Int!, $data: CreateDishInputType!) {
+    createDish(restaurantId: $restaurantId, data: $data) {
+      ok
+      error
+      result {
+        id
+        name
+        price
+        coverImage
+        description
+        option {
+          name
+          choice {
+            name
+            extraPrice
+          }
+        }
+      }
+    }
+  }
 `;

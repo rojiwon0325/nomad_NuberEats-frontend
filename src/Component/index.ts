@@ -3,6 +3,7 @@ import _HomeLayout from "./HomeLayout";
 import _AuthLayout from "./Auth/AuthLayout";
 import _ErrorMessage from "./Auth/ErrorMessage";
 import _RestaurantList from "./RestaurantList";
+import _Button from "./Button";
 
 export const RootLayout = _RootLayout;
 export const HomeLayout = _HomeLayout;
@@ -13,3 +14,6 @@ export const ErrorMessage = _ErrorMessage;
 
 //OwnerHome
 export const RestaurantList = _RestaurantList;
+
+//Common
+export const Button = _Button;
